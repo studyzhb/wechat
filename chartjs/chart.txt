@@ -1,0 +1,478 @@
+
+Chart.js 中文文档（整理）
+Chart.js是一个简单、面向对象、为设计者和开发者准备的图表绘制工具库。
+步骤：
+1、在HTML中引入Chart.js文件
+<script src="Chart.js"></script>
+2、在body内使用canvas，设置ID以及相应样式
+<canvas id="myChart" width="400" height="400"></canvas>
+3、获取canvas的ID、设置画笔
+  var myChart = document.getElementById("myChart");
+    if (myChart.getContext) {                             //判断浏览器的兼容性
+        //画笔
+        var ctx = myChart.getContext('2d');
+       -----图标数据结构内容---------------
+    } else {
+        alert("您的浏览器不支持Canvas，请升级浏览器！");
+    }
+4、在“图标数据结构内容”区域写入相应图表的数据
+
+
+注意：
+1）数据结构（var data = {..........}）要写在“var myNewChart = new Chart(ctx).Line(data,options);”之前；
+2）在“var myNewChart = new Chart(ctx).Line(data,options);”中的“options”是“图表参数”要放置的位置， 
+    切记要将其更改为“图表参数”
+     例：var myNewChart = new Chart(ctx).Line(data,"scaleFontFamily : 'Arial'");
+3）
+   Line----------曲线图
+   Bar-----------柱状图
+   Radar--------雷达图或蛛网图
+   Polar---------极地区域图
+   Pie-----------饼图
+   Doughnut---环形图
+   
+****图表参数的注释部分为软件直译，翻译了一个大概的意思；若不明白可实际操作观看效果，以明确语句含义。****
+1、曲线图（Line chart）
+new Chart(ctx).Line(data,options);
+
+数据结构
+var data = {
+labels : ["January","February","March","April","May","June","July"],
+datasets : [
+{
+fillColor : "rgba(220,220,220,0.5)",
+strokeColor : "rgba(220,220,220,1)",
+pointColor : "rgba(220,220,220,1)",
+pointStrokeColor : "#fff",
+data : [65,59,90,81,56,55,40]
+},
+{
+fillColor : "rgba(151,187,205,0.5)",
+strokeColor : "rgba(151,187,205,1)",
+pointColor : "rgba(151,187,205,1)",
+pointStrokeColor : "#fff",
+data : [28,48,40,19,96,27,100]
+}
+]
+}
+
+图表参数
+Line.defaults = { 
+//布尔——如果我们展示规模以上的图表数据
+scaleOverlay : false,
+//布尔——如果我们想要用硬编码的范围覆盖
+scaleOverride : false,
+//** 如果需要scaleOverride是正确的 **
+//步骤的数量在一个硬编码的数量规模
+scaleSteps : null,
+//数量-值硬编码的规模
+scaleStepWidth : null,
+//数量规模起始值
+scaleStartValue : null,
+//字符串,刻度线的颜色  
+scaleLineColor : "rgba(0,0,0,.1)",
+//像素数量标度线的宽度  
+scaleLineWidth : 1,
+//布尔——无论是规模上的标签
+scaleShowLabels : false,
+//插值JS字符串,可以访问值
+scaleLabel : "<%=value%>",
+//字符串,标尺刻度标尺刻度的字体声明
+scaleFontFamily : "'Arial'",
+//规模数量的标签字体大小(以像素为单位)
+scaleFontSize : 12,
+//字符串——规模标签字体风格
+scaleFontStyle : "normal",
+//字符串——规模标签字体颜色
+scaleFontColor : "#666",
+//布尔——无论是网格线在图所示
+scaleShowGridLines : true,
+//字符串,网格线的颜色
+scaleGridLineColor : "rgba(0,0,0,.05)",
+//网格线的宽度
+scaleGridLineWidth : 1,
+//布尔——无论是点之间的线是弯曲的
+bezierCurve : true,
+//布尔——是否显示为每个点一个点
+pointDot : true,
+//每个点的像素点的数量,半径
+pointDotRadius : 3,
+//数字像素宽度的点中风
+pointDotStrokeWidth : 1,
+//布尔——是否显示数据集的中风
+datasetStroke : true,
+//像素宽度的数量数据集
+datasetStrokeWidth : 2,
+//布尔——是否用颜色填充数据集
+datasetFill : true,
+//布尔——无论是动画图表
+animation : true,
+//数字,数字动画的步骤
+animationSteps : 60,
+//字符串——动画放松效果
+animationEasing : "easeOutQuart",
+//函数——火灾当动画完成
+onAnimationComplete : null
+}
+
+
+2、柱状图（Bar chart）
+new Chart(ctx).Bar(data,options);
+
+数据结构
+var data = {
+labels : ["January","February","March","April","May","June","July"],
+datasets : [
+{
+fillColor : "rgba(220,220,220,0.5)",
+strokeColor : "rgba(220,220,220,1)",
+data : [65,59,90,81,56,55,40]
+},
+{
+fillColor : "rgba(151,187,205,0.5)",
+strokeColor : "rgba(151,187,205,1)",
+data : [28,48,40,19,96,27,100]
+}
+]
+}
+
+图表参数
+Bar.defaults = { 
+//布尔——如果我们展示规模以上的图表数据
+scaleOverlay : false,
+//布尔——如果我们想要用硬编码的范围覆盖
+scaleOverride : false,
+//** 如果需要scaleOverride是正确的 **
+//步骤的数量在一个硬编码的数量规模
+scaleSteps : null,
+//数量-值硬编码的规模
+scaleStepWidth : null,
+//数量规模起始值
+scaleStartValue : null,
+//字符串,刻度线的颜色  
+scaleLineColor : "rgba(0,0,0,.1)",
+//像素数量标度线的宽度  
+scaleLineWidth : 1,
+//布尔——无论是规模上的标签
+scaleShowLabels : false,
+//插值JS字符串,可以访问值
+scaleLabel : "<%=value%>",
+//字符串,标尺刻度标尺刻度的字体声明
+scaleFontFamily : "'Arial'",
+//规模数量的标签字体大小(以像素为单位)
+scaleFontSize : 12,
+//字符串——规模标签字体风格
+scaleFontStyle : "normal",
+//字符串——规模标签字体颜色
+scaleFontColor : "#666",
+///布尔——无论是网格线在图所示
+scaleShowGridLines : true,
+//字符串,网格线的颜色
+scaleGridLineColor : "rgba(0,0,0,.05)",
+//网格线的宽度
+scaleGridLineWidth : 1,
+//布尔——如果有一个中风在每一栏
+barShowStroke : true,
+//数量——像素宽度
+barStrokeWidth : 2,
+//每个X -间距值集
+barValueSpacing : 5,
+//数量-间距在X值的数据集
+barDatasetSpacing : 1,
+//布尔——无论是动画图表
+animation : true,
+//数字,数字动画的步骤
+animationSteps : 60,
+//字符串——动画放松效果
+animationEasing : "easeOutQuart",
+//函数——当动画完成
+onAnimationComplete : null
+}
+
+
+3、雷达图或蛛网图（Radar chart）
+new Chart(ctx).Radar(data,options);
+
+数据结构
+var data = {
+labels : ["Eating","Drinking","Sleeping","Designing","Coding","Partying","Running"],
+datasets : [
+{
+fillColor : "rgba(220,220,220,0.5)",
+strokeColor : "rgba(220,220,220,1)",
+pointColor : "rgba(220,220,220,1)",
+pointStrokeColor : "#fff",
+data : [65,59,90,81,56,55,40]
+},
+{
+fillColor : "rgba(151,187,205,0.5)",
+strokeColor : "rgba(151,187,205,1)",
+pointColor : "rgba(151,187,205,1)",
+pointStrokeColor : "#fff",
+data : [28,48,40,19,96,27,100]
+}
+]
+}
+
+图表
+Radar.defaults = { 
+//布尔——如果我们展示规模以上的图表数据
+scaleOverlay : false,
+//布尔——如果我们想要用硬编码的范围覆盖
+scaleOverride : false,
+//** 如果需要scaleOverride是正确的 **
+//步骤的数量在一个硬编码的数量规模
+scaleSteps : null,
+//数量-值硬编码的规模
+scaleStepWidth : null,
+//中心起始值
+scaleStartValue : null,
+//布尔——为每个点规模是否显示行
+scaleShowLine : true,
+//字符串,刻度线的颜色  
+scaleLineColor : "rgba(0,0,0,.1)",
+//像素数量标度线的宽度
+scaleLineWidth : 1,
+//布尔——无论是规模上的标签
+scaleShowLabels : false,
+//插值JS字符串,可以访问值
+scaleLabel : "<%=value%>",
+//字符串,标尺刻度标尺刻度的字体声明
+scaleFontFamily : "'Arial'",
+//规模数量的标签字体大小(以像素为单位)
+scaleFontSize : 12,
+//字符串——规模标签字体风格
+scaleFontStyle : "normal",
+//字符串——规模标签字体颜色
+scaleFontColor : "#666",
+//布尔——显示标尺刻度的背景
+scaleShowLabelBackdrop : true,
+//字符串,标签的颜色背景  
+scaleBackdropColor : "rgba(255,255,255,0.75)",
+//数量——背景填充上面和下面的标签像素
+scaleBackdropPaddingY : 2,
+//数量——背景填充像素的标签
+scaleBackdropPaddingX : 2,
+//布尔——我们是否显示雷达的角线
+angleShowLineOut : true,
+//字符串-颜色的角线
+angleLineColor : "rgba(0,0,0,.1)",
+//数量的像素宽度角线
+angleLineWidth : 1,
+//字符串点标签字体声明
+pointLabelFontFamily : "'Arial'",
+//字符串点标签的字重
+pointLabelFontStyle : "normal",
+//点数量的标签字体大小(以像素为单位)
+pointLabelFontSize : 12,
+//字符串点标签的字体颜色  
+pointLabelFontColor : "#666",
+//布尔——是否显示为每个点一个点
+pointDot : true,
+//每个点的像素点的数量,半径
+pointDotRadius : 3,
+//数字像素宽度的点
+pointDotStrokeWidth : 1,
+//布尔——是否显示数据集
+datasetStroke : true,
+//-像素宽度的数量数据集
+datasetStrokeWidth : 2,
+//布尔——是否用颜色填充数据集
+datasetFill : true,
+//布尔——无论是动画图表
+animation : true,
+//数字,数字动画的步骤
+animationSteps : 60,
+//字符串——动画放松效果
+animationEasing : "easeOutQuart",
+//函数——当动画完成
+onAnimationComplete : null
+}
+
+
+4、极地区域图（Polar area chart）
+new Chart(ctx).PolarArea(data,options);
+
+数据结构
+var data = [
+{
+value : 30,
+color: "#D97041"
+},
+{
+value : 90,
+color: "#C7604C"
+},
+{
+value : 24,
+color: "#21323D"
+},
+{
+value : 58,
+color: "#9D9B7F"
+},
+{
+value : 82,
+color: "#7D4F6D"
+},
+{
+value : 8,
+color: "#584A5E"
+}
+]
+
+图表
+PolarArea.defaults = { 
+//布尔——我们是否显示规模高于或低于图表部分
+scaleOverlay : true,
+//布尔——如果我们想要用硬编码的范围覆盖
+scaleOverride : false,
+//** 如果需要scaleOverride是正确的 **
+//步骤的数量在一个硬编码的数量规模
+scaleSteps : null,
+//数量-值硬编码的规模
+scaleStepWidth : null,
+//中心起始值
+scaleStartValue : null,
+//布尔——显示一行中每一个值范围
+scaleShowLine : true,
+//字符串-刻度线的颜色
+scaleLineColor : "rgba(0,0,0,.1)",
+//数量——线的宽度,以像素为单位
+scaleLineWidth : 1,
+//布尔——我们是否应该显示文本标签
+scaleShowLabels : true,
+//插值JS字符串,可以访问值
+scaleLabel : "<%=value%>",
+//字符串,标尺刻度标尺刻度的字体声明
+scaleFontFamily : "'Arial'",
+//规模数量的标签字体大小(以像素为单位)
+scaleFontSize : 12,
+//字符串——规模标签字体风格
+scaleFontStyle : "normal",
+//字符串——规模标签字体颜色
+scaleFontColor : "#666",
+//布尔——显示标尺刻度的背景
+scaleShowLabelBackdrop : true,
+//字符串,标签的颜色背景  
+scaleBackdropColor : "rgba(255,255,255,0.75)",
+//数量——背景填充上面和下面的标签像素
+scaleBackdropPaddingY : 2,
+//数量——背景填充像素的标签
+scaleBackdropPaddingX : 2,
+//布尔——一行在图表中的每一部分
+segmentShowStroke : true,
+//字符串,在每一部分的颜色。
+segmentStrokeColor : "#fff",
+//数量-描边的宽度值像素
+segmentStrokeWidth : 2,
+//布尔——是否动画图表
+animation : true,
+//数量,数量的动画的步骤
+animationSteps : 100,
+//字符串——动画放松效果
+animationEasing : "easeOutBounce",
+//布尔——动画的旋转图
+animateRotate : true,
+//布尔——动画缩放中心的图表
+animateScale : false,
+//功能——这动画图完成
+onAnimationComplete : null
+}
+
+
+5、饼图（Pie chart）
+new Chart(ctx).Pie(data,options);
+
+数据结构
+var data = [
+{
+value: 30,
+color:"#F38630"
+},
+{
+value : 50,
+color : "#E0E4CC"
+},
+{
+value : 100,
+color : "#69D2E7"
+} 
+]
+
+图表
+Pie.defaults = {
+//布尔——我们是否应该显示两个扇形之间的间隙
+segmentShowStroke : true,
+//字符串,两个扇形之间间隙的颜色
+segmentStrokeColor : "#fff",
+//数量——两个扇形之间间隙的宽度
+segmentStrokeWidth : 2,
+//布尔——我们是否应该动画图表
+animation : true,
+//数量,数量的动画的步骤
+animationSteps : 100,
+//字符串——动画放松效果
+animationEasing : "easeOutBounce",
+//布尔——我们动画是否旋转
+animateRotate : true,
+//布尔——我们动画是否缩放中心的扇形
+animateScale : false,
+
+//函数—动画完成。
+onAnimationComplete : null
+}
+
+6、环形图（Doughnut chart）
+new Chart(ctx).Doughnut(data,options);
+
+数据结构
+var data = [
+{
+value: 30,
+color:"#F7464A"
+},
+{
+value : 50,
+color : "#E2EAE9"
+},
+{
+value : 100,
+color : "#D4CCC5"
+},
+{
+value : 40,
+color : "#949FB1"
+},
+{
+value : 120,
+color : "#4D5360"
+}
+
+
+]
+
+图表
+Doughnut.defaults = {
+//布尔——我们是否应该显示两个扇形之间的间隙
+segmentShowStroke : true,
+//字符串,两个扇形之间的间隙的颜色
+segmentStrokeColor : "#fff",
+//数量——两个扇形之间间隙的宽度
+segmentStrokeWidth : 2,
+//中间，图表的比例.
+percentageInnerCutout : 50,
+//布尔——我们是否应该动画图表
+animation : true,
+//数量,数量的动画的步骤
+animationSteps : 100,
+//字符串——动画放松效果
+animationEasing : "easeOutBounce",
+//布尔——我们是否动画甜甜圈的旋转
+animateRotate : true,
+//布尔——我们是否动画缩放的甜甜圈中心
+animateScale : false,
+//函数——动画完成。
+onAnimationComplete : null
+}
+
